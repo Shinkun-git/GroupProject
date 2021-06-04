@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== "production") {
+  require('dotenv').config();
+}
+
 const express = require('express')
 const app = express();
 const path = require('path')
@@ -52,8 +56,8 @@ app.post('/search', WrapAsync(async (req, res) => {
     var options = {
       params: { query: `${term}`, page: '1' },
       headers: {
-        'x-rapidapi-key': 'process.env.rapidapi-key',
-        'x-rapidapi-host': 'process.env.rapidapi-adv'
+        'x-rapidapi-key': `${process.env.key}`,
+        'x-rapidapi-host': `${process.env.adv}`
       }
     };
     const result = await axios('https://advanced-movie-search.p.rapidapi.com/search/movie', options)
@@ -68,8 +72,8 @@ app.post('/search', WrapAsync(async (req, res) => {
     var options = {
       params: { with_genres: `${genlist}`, page: '1'},
       headers: {
-        'x-rapidapi-key': 'process.env.rapidapi-key',
-        'x-rapidapi-host': 'process.env.rapidapi-adv'
+        'x-rapidapi-key': `${process.env.key}`,
+        'x-rapidapi-host': `${process.env.adv}`
       }
     };
     const result = await axios('https://advanced-movie-search.p.rapidapi.com/discover/movie', options)
@@ -84,8 +88,8 @@ app.get('/search/imdb/:tt', WrapAsync(async(req, res, next) => {
   console.log(tt)
   var options = {
     headers: {
-      'x-rapidapi-key': 'process.env.rapidapi-key',
-      'x-rapidapi-host': 'process.env.rapidapi-imdb'
+      'x-rapidapi-key': `${process.env.key}`,
+      'x-rapidapi-host': `${process.env.imdb}`
     }
   };
   const result = await axios(`https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${tt}`, options)
@@ -98,8 +102,8 @@ app.get('/search/:id', WrapAsync(async (req, res, next) => {
   const options = {
     params: { movie_id: `${id}` },
     headers: {
-      'x-rapidapi-key': 'process.env.rapidapi-key',
-      'x-rapidapi-host': 'process.env.rapidapi-adv'
+      'x-rapidapi-key': `${process.env.key}`,
+      'x-rapidapi-host': `${process.env.adv}`
     }
   };
   const result = await axios('https://advanced-movie-search.p.rapidapi.com/movies/getdetails', options)
