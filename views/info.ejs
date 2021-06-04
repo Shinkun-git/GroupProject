@@ -1,0 +1,25 @@
+
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+          id:  <%= data.id %> <br>
+           imbd id: <%= data.imdb_id %> <br>
+           title: <%= data.title %> <br>
+           Tagline: <%= data.tagline %> <br>
+           status: <%= data.status %> runtime: <%= data.runtime %> <br>
+           released: <%= data.release_date %> <br>
+           <a href="<%= data.homepage %>">go to official page</a><br>
+        
+        <p><%= data.overview %> </p><br>
+        votesAVG: <%= data.vote_average %> 
+           voters: <%= data.vote_count %> <br>
+        <div><img src="<%= data.poster_path %>" alt=""></div>
+        <div><img src="<%= data.backdrop_path %>" alt=""></div>
+            
+        </div>
+
+    </div>
+
+</div>

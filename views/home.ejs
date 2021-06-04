@@ -1,0 +1,63 @@
+
+<% layout('layouts/boilerplate') %> 
+
+    <h1>hello this is home,</h1> 
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-5">
+              <form action="/search" method="post" style="background-color: aquamarine;" class="validateForm" novalidate>
+                <div class="form-group">
+                  <label class="form-label" for="query">Search box</label>
+                <input class="form-control" type="text" name="term" id="query">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="Querymethod">query by</label>
+                <input type="radio" name="Qtyp" id="Querymethod" value="n" required>Name <br>
+                <input type="radio" name="Qtyp" id="Querymethod" value="g" required>Search by Genre
+                </div>
+                <textarea name="genlist" id="genlist" cols="8" rows="1" style="display: none;"></textarea>
+                <div class="form-group">
+                    <input type="checkbox" name="gen[]"  value="28">Action
+                    <input type="checkbox" name="gen[]"  value="12">Adventure
+                    <input type="checkbox" name="gen[]"  value="16">Animation
+                    <input type="checkbox" name="gen[]"  value="35">Comedy
+                    <input type="checkbox" name="gen[]"  value="80">Crime
+                    <input type="checkbox" name="gen[]"  value="99">Documentary
+                    <input type="checkbox" name="gen[]"  value="18">Drama
+                    <input type="checkbox" name="gen[]"  value="10751">Family
+                    <input type="checkbox" name="gen[]"  value="14">Fantasy
+                    <input type="checkbox" name="gen[]"  value="36">History
+                    <input type="checkbox" name="gen[]"  value="27">Horror
+                    <input type="checkbox" name="gen[]"  value="10402">Music
+                    <input type="checkbox" name="gen[]"  value="9648">Mystery
+                    <input type="checkbox" name="gen[]"  value="10749">Romance
+                    <input type="checkbox" name="gen[]"  value="878">Sci-fi
+                    <input type="checkbox" name="gen[]"  value="10770">TVmovie
+                    <input type="checkbox" name="gen[]"  value="53">Thriller
+                    <input type="checkbox" name="gen[]"  value="10752">War
+                    <input type="checkbox" name="gen[]"  value="37">Western
+                </div>
+                 
+                <button type="submit" class="btn btn-primary" id="submit">Search</button>
+              </form>
+              
+            </div>
+        </div>
+    </div>
+    <script>
+      let val=''
+      const list = document.querySelector('#genlist')
+      const sform = document.querySelector("form");
+      sform.addEventListener("submit", async (e) => {
+        // e.preventDefault();
+        var checkboxes = document.getElementsByName('gen[]');  
+        for (var i=0, n=checkboxes.length;i<n;i++) 
+          {
+            if (checkboxes[i].checked){
+            val += ","+checkboxes[i].value;
+              }
+        }
+        list.append(val)
+        })
+    </script>
