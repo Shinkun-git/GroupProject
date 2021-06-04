@@ -52,8 +52,8 @@ app.post('/search', WrapAsync(async (req, res) => {
     var options = {
       params: { query: `${term}`, page: '1' },
       headers: {
-        'x-rapidapi-key': '63b9d3c848msha0ae8f828dd1a7dp1cf9a0jsn45f857b82a7d',
-        'x-rapidapi-host': 'advanced-movie-search.p.rapidapi.com'
+        'x-rapidapi-key': 'process.env.rapidapi-key',
+        'x-rapidapi-host': 'process.env.rapidapi-adv'
       }
     };
     const result = await axios('https://advanced-movie-search.p.rapidapi.com/search/movie', options)
@@ -68,8 +68,8 @@ app.post('/search', WrapAsync(async (req, res) => {
     var options = {
       params: { with_genres: `${genlist}`, page: '1'},
       headers: {
-        'x-rapidapi-key': '63b9d3c848msha0ae8f828dd1a7dp1cf9a0jsn45f857b82a7d',
-        'x-rapidapi-host': 'advanced-movie-search.p.rapidapi.com'
+        'x-rapidapi-key': 'process.env.rapidapi-key',
+        'x-rapidapi-host': 'process.env.rapidapi-adv'
       }
     };
     const result = await axios('https://advanced-movie-search.p.rapidapi.com/discover/movie', options)
@@ -84,8 +84,8 @@ app.get('/search/imdb/:tt', WrapAsync(async(req, res, next) => {
   console.log(tt)
   var options = {
     headers: {
-      'x-rapidapi-key': '63b9d3c848msha0ae8f828dd1a7dp1cf9a0jsn45f857b82a7d',
-      'x-rapidapi-host': 'imdb-internet-movie-database-unofficial.p.rapidapi.com'
+      'x-rapidapi-key': 'process.env.rapidapi-key',
+      'x-rapidapi-host': 'process.env.rapidapi-imdb'
     }
   };
   const result = await axios(`https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${tt}`, options)
@@ -98,8 +98,8 @@ app.get('/search/:id', WrapAsync(async (req, res, next) => {
   const options = {
     params: { movie_id: `${id}` },
     headers: {
-      'x-rapidapi-key': '63b9d3c848msha0ae8f828dd1a7dp1cf9a0jsn45f857b82a7d',
-      'x-rapidapi-host': 'advanced-movie-search.p.rapidapi.com'
+      'x-rapidapi-key': 'process.env.rapidapi-key',
+      'x-rapidapi-host': 'process.env.rapidapi-adv'
     }
   };
   const result = await axios('https://advanced-movie-search.p.rapidapi.com/movies/getdetails', options)
@@ -125,41 +125,3 @@ app.listen('3000', (req, res) => {
 
 
 
-/* 
-var axios = require("axios").default;
-
-var options = {
-  method: 'GET',
-  url: 'https://advanced-movie-search.p.rapidapi.com/search/movie',
-  params: {query: 'kong', page: '1'},
-  headers: {
-    'x-rapidapi-key': '63b9d3c848msha0ae8f828dd1a7dp1cf9a0jsn45f857b82a7d',
-    'x-rapidapi-host': 'advanced-movie-search.p.rapidapi.com'
-  }
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
-});
-
-
-var axios = require("axios").default;
-
-var options = {
-  method: 'GET',
-  url: 'https://advanced-movie-search.p.rapidapi.com/movies/getdetails',
-  params: {movie_id: '399566'},
-  headers: {
-    'x-rapidapi-key': '63b9d3c848msha0ae8f828dd1a7dp1cf9a0jsn45f857b82a7d',
-    'x-rapidapi-host': 'advanced-movie-search.p.rapidapi.com'
-  }
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
-});
- */
