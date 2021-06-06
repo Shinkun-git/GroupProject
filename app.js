@@ -108,7 +108,18 @@ app.get('/search/:id', WrapAsync(async (req, res, next) => {
   };
   const result = await axios('https://advanced-movie-search.p.rapidapi.com/movies/getdetails', options)
   const {data} = result;
-  res.render('info', {data})
+
+  const tt = data.imdb_id;
+  var param = {
+    headers: {
+      'x-rapidapi-key': `${process.env.key}`,
+      'x-rapidapi-host': `${process.env.imdb}`
+    }
+  };
+  const result2 = await axios(`https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${tt}`, param)
+  const data2 = result2.data;
+
+  res.render('info', {data , data2})
 }))
 
 

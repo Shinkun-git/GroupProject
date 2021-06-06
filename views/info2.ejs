@@ -1,24 +1,33 @@
 <% layout('layouts/boilerplate') %>
 
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-           imbd id: <%= data.id %> <br>
-           title: <%= data.title %> <br>
-           Tagline: <%= data.tagline %> <br>
-           status: <%= data.status %> runtime: <%= data.length %> <br>
-           released: <%= data.year %> <br>
-           <a href="<%= data.homepage %>">go to official page</a><br>
-        
-        <p><%= data.plot %> </p><br>
-        votesAVG: <%= data.rating %> 
-           voters: <%= data.rating_votes %> <br>
-        <div><img src="<%= data.poster %>" alt=""></div>
-        <div><img src="<%= data.backdrop_path %>" alt=""></div>
-            
+<div class="container" id="infoc">
+    <div class="row justify-content-center">
+
+        <div class="col col-5">
+            <div class="imgbx"><img src="<%= data.poster %>" alt="" id="poster"></div>
+        </div>
+        <div class="col col-6">
+            <h3><%= data.title %></h3> </span>
+            <p>
+                <% if(data.tagline){ %> <span class="text-muted">  Tagline~ "<%= data.tagline %>"      </span> <% } %> 
+                Go to <a href="<%= data.homepage %>">Official Page</a>
+            </p>
+            <p><b>status:</b>  <%= data.status %></p>  
+            <p><b>Release Date:</b> <%= data.year %></p>
+            <p><b>Runtime:</b>  <%= data.length %></p>
+            <p><b>IMDB_id:</b> <%= data.id %></p>
+            <p><b>votesAVG:</b>  <%= data.rating %> ,<b>voted:</b>  <%= data.rating_votes %></p>
+            <p><b>PLOT(Overview)~</b>  <br><%= data.plot %></p>
+            <p><h5>Casting: -</h5>
+                <ul>
+                <% for(let c of data.cast){ %> 
+                  <li><b><%= c.actor %></b> <span class="text-muted">as~<%= c.character %> </span>  </li>  
+                    <% } %> 
+                </ul>
+            </p>
         </div>
 
     </div>
-
 </div>
+

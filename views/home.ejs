@@ -1,45 +1,61 @@
 
 <% layout('layouts/boilerplate') %> 
 
-    <h1>hello this is home,</h1> 
+<link rel="stylesheet" href="/css/home.css">
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-5">
-              <form action="/search" method="post" style="background-color: aquamarine;" class="validateForm" novalidate>
+            <div class="col-8">
+              <form action="/search" method="post" class="validateForm" novalidate id="hform">
                 <div class="form-group">
                   <label class="form-label" for="query">Search box</label>
-                <input class="form-control" type="text" name="term" id="query">
+                <input class="form-control" type="text" name="term" id="query" placeholder="Name a movie">
+                </div> <br>
+                <div class="container">
+                  <div class="row justify-content-around">
+                    <div class="col-5" id="rdio">
+                      <label class="form-label" for="Querymethod">Browse by :  </label>
+                      <label class="form-label"><input type="radio" name="Qtyp" id="nameradio" value="n" checked required>Name <span>   or </span></label>
+                      <label class="form-label"><input type="radio" name="Qtyp" id="genradio" value="g" required>Search by Genre</label>
+                    </div>
+                    <div class="col-4">
+                      <button type="submit" class="btn" id="submit">Search</button>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label class="form-label" for="Querymethod">query by</label>
-                <input type="radio" name="Qtyp" id="Querymethod" value="n" required>Name <br>
-                <input type="radio" name="Qtyp" id="Querymethod" value="g" required>Search by Genre
-                </div>
+                
+                <br><br>
+
                 <textarea name="genlist" id="genlist" cols="8" rows="1" style="display: none;"></textarea>
                 <div class="form-group">
-                    <input type="checkbox" name="gen[]"  value="28">Action
-                    <input type="checkbox" name="gen[]"  value="12">Adventure
-                    <input type="checkbox" name="gen[]"  value="16">Animation
-                    <input type="checkbox" name="gen[]"  value="35">Comedy
-                    <input type="checkbox" name="gen[]"  value="80">Crime
-                    <input type="checkbox" name="gen[]"  value="99">Documentary
-                    <input type="checkbox" name="gen[]"  value="18">Drama
-                    <input type="checkbox" name="gen[]"  value="10751">Family
-                    <input type="checkbox" name="gen[]"  value="14">Fantasy
-                    <input type="checkbox" name="gen[]"  value="36">History
-                    <input type="checkbox" name="gen[]"  value="27">Horror
-                    <input type="checkbox" name="gen[]"  value="10402">Music
-                    <input type="checkbox" name="gen[]"  value="9648">Mystery
-                    <input type="checkbox" name="gen[]"  value="10749">Romance
-                    <input type="checkbox" name="gen[]"  value="878">Sci-fi
-                    <input type="checkbox" name="gen[]"  value="10770">TVmovie
-                    <input type="checkbox" name="gen[]"  value="53">Thriller
-                    <input type="checkbox" name="gen[]"  value="10752">War
-                    <input type="checkbox" name="gen[]"  value="37">Western
+                  <div class="conatiner">
+                    <div class="row justify-content-between offset-1">
+                      <div class="col col-10"  id="gens">
+                        <label for="ac"><input type="checkbox" name="gen[]" id="ac" value="28"> <span>Action </span></label>
+                        <label for="ad"><input type="checkbox" name="gen[]" id="ad" value="12"> <span>Adventure </span></label>
+                        <label for="an"><input type="checkbox" name="gen[]" id="an" value="16"> <span>Animation </span></label>
+                        <label for="co"><input type="checkbox" name="gen[]" id="co" value="35"> <span>Comedy </span></label>
+                        <label for="cr"><input type="checkbox" name="gen[]" id="cr" value="80"> <span>Crime </span></label>
+                        <label for="dc"><input type="checkbox" name="gen[]" id="dc" value="99"> <span>Documentary </span></label>
+                        <label for="dr"><input type="checkbox" name="gen[]" id="dr" value="18"> <span>Drama </span></label>
+                        <label for="fm"><input type="checkbox" name="gen[]" id="fm" value="10751"> <span>Family </span></label>
+                        <label for="fn"><input type="checkbox" name="gen[]" id="fn" value="14"> <span>Fantasy </span></label>
+                        <label for="ht"><input type="checkbox" name="gen[]" id="hst" value="36"> <span>History </span></label>
+                        <label for="hr"><input type="checkbox" name="gen[]" id="hrr" value="27"> <span>Horror </span></label>
+                        <label for="ms"><input type="checkbox" name="gen[]" id="ms" value="10402"> <span>Music </span></label>
+                        <label for="my"><input type="checkbox" name="gen[]" id="mys" value="9648"> <span>Mystery </span></label>
+                        <label for="rm"><input type="checkbox" name="gen[]" id="rm" value="10749"> <span>Romance </span></label>
+                        <label for="sf"><input type="checkbox" name="gen[]" id="sf" value="878"> <span>Sci-fi </span></label>
+                        <label for="tv"><input type="checkbox" name="gen[]" id="tv" value="10770"> <span>Tele </span></label>
+                        <label for="tr"><input type="checkbox" name="gen[]" id="tr" value="53"> <span>Thriller </span></label>
+                        <label for="wr"><input type="checkbox" name="gen[]" id="wr" value="10752"> <span>War </span></label>
+                        <label for="ws"><input type="checkbox" name="gen[]" id="ws" value="37"> <span>Western </span></label>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
                  
-                <button type="submit" class="btn btn-primary" id="submit">Search</button>
               </form>
               
             </div>
@@ -61,3 +77,8 @@
         list.append(val)
         })
     </script>
+
+
+                        
+
+                        
