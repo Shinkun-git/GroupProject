@@ -1,7 +1,8 @@
 
 <% layout('layouts/boilerplate') %>
 
-<script src="/js/imdbcast.js"></script>
+<%- include('./partials/navbar')  %> 
+
 
 <div class="container" id="infoc">
     <div class="row justify-content-center">
@@ -13,7 +14,7 @@
             <h3><%= data.title %></h3> </span>
             <p>
                 <% if(data.tagline){ %> <span class="text-muted">  Tagline~ "<%= data.tagline %>"      </span> <% } %> 
-               <span>     Go to <a href="<%= data.homepage %>">Official Page</a></span> 
+                <% if(data.homepage!=""){ %> <span>      Go to <a href="<%= data.homepage %>">Official Page</a></span>  <% } %> 
             </p>
             <p><b>Genres: - </b>
                 <% for(let i=0 ; i<data.genres.length ;i++){ if( i== (data.genres.length-1) ){ %> 
@@ -25,13 +26,14 @@
             <p><b>Popularity:</b> <%= data.popularity %> ,<b>IMDB_id:</b> <%= data.imdb_id %></p>
             <p><b>votesAVG:</b>  <%= data.vote_average %> ,<b>voted:</b>  <%= data.vote_count %></p>
             <br>
+            <% if(data2){ %> 
             <p>Cast:- <ul>
                 <% for(let i=0 ; i <data2.cast.length ; i++){ %> 
                 <li><b><%= data2.cast[i].actor %></b> as <%= data2.cast[i].character %> </li>    
                     <% if(i>5){break;}} %>
                     </ul>
                 </p>
-            
+            <% } %> 
         </div>
         <div class="col col-8" style="margin-top: 2em;">
             <div class="card bg-dark text-white">

@@ -1,27 +1,26 @@
 <% layout('layouts/boilerplate') %>
-
+<%- include('./partials/navbar')  %> 
 
 <div class="container" id="infoc">
     <div class="row justify-content-center">
 
         <div class="col col-5">
-            <div class="imgbx"><img src="<%= data.poster %>" alt="" id="poster"></div>
+            <div class="imgbx"><img src="<%= data2.poster %>" alt="" id="poster"></div>
         </div>
         <div class="col col-6">
-            <h3><%= data.title %></h3> </span>
+            <h3><%= data2.title %></h3> </span>
             <p>
-                <% if(data.tagline){ %> <span class="text-muted">  Tagline~ "<%= data.tagline %>"      </span> <% } %> 
-                Go to <a href="<%= data.homepage %>">Official Page</a>
+                <% if(data2.tagline){ %> <span class="text-muted">  Tagline~ "<%= data2.tagline %>"      </span> <% } %> 
             </p>
-            <p><b>status:</b>  <%= data.status %></p>  
-            <p><b>Release Date:</b> <%= data.year %></p>
-            <p><b>Runtime:</b>  <%= data.length %></p>
-            <p><b>IMDB_id:</b> <%= data.id %></p>
-            <p><b>votesAVG:</b>  <%= data.rating %> ,<b>voted:</b>  <%= data.rating_votes %></p>
-            <p><b>PLOT(Overview)~</b>  <br><%= data.plot %></p>
+            <p><b>status:</b>  <%= data2.status %></p>  
+            <p><b>Release Date:</b> <%= data2.year %></p>
+            <p><b>Runtime:</b>  <%= data2.length %></p>
+            <p><b>IMDB_id:</b> <%= data2.id %></p>
+            <p><b>votesAVG:</b>  <%= data2.rating %> ,<b>voted:</b>  <%= data2.rating_votes %></p>
+            <p><b>PLOT(Overview)~</b>  <br><%= data2.plot %></p>
             <p><h5>Casting: -</h5>
                 <ul>
-                <% for(let c of data.cast){ %> 
+                <% for(let c of data2.cast){ %> 
                   <li><b><%= c.actor %></b> <span class="text-muted">as~<%= c.character %> </span>  </li>  
                     <% } %> 
                 </ul>

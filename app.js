@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 
@@ -44,13 +44,13 @@ app.get('/', (req, res) => {
 
 app.post('/search', WrapAsync(async (req, res) => {
   const { term, Qtyp, genlist } = req.body;
-  console.log(term)
-  console.log(Qtyp)
-  console.log(genlist)
+  /*   console.log(term)
+    console.log(Qtyp)
+    console.log(genlist) */
 
-  if(Qtyp=='n'){
-    if(!term){  
-      req.flash('error' , 'specify a Movie name to search'); 
+  if (Qtyp == 'n') {
+    if (!term) {
+      req.flash('error', 'specify a Movie name to search');
       res.redirect('/')
     }
     var options = {
@@ -62,15 +62,15 @@ app.post('/search', WrapAsync(async (req, res) => {
     };
     const result = await axios('https://advanced-movie-search.p.rapidapi.com/search/movie', options)
     const resultsARRAY = result.data.results;
-    res.render('matches', { resultsARRAY, term ,genlist})
+    res.render('matches', { resultsARRAY, term, genlist })
   }
-  else if(Qtyp=='g'){
-    if(!genlist){  
-      req.flash('error' , 'specify a genre to search'); 
+  else if (Qtyp == 'g') {
+    if (!genlist) {
+      req.flash('error', 'specify a genre to search');
       res.redirect('/')
     }
     var options = {
-      params: { with_genres: `${genlist}`, page: '1'},
+      params: { with_genres: `${genlist}`, page: '1' },
       headers: {
         'x-rapidapi-key': `${process.env.key}`,
         'x-rapidapi-host': `${process.env.adv}`
@@ -78,27 +78,15 @@ app.post('/search', WrapAsync(async (req, res) => {
     };
     const result = await axios('https://advanced-movie-search.p.rapidapi.com/discover/movie', options)
     const resultsARRAY = result.data.results;
-    res.render('matches', { resultsARRAY, genlist ,term})
+    res.render('matches', { resultsARRAY, genlist, term })
   }
 }))
 
 
-app.get('/search/imdb/:tt', WrapAsync(async(req, res, next) => {
-  let {tt} = req.params;
-  console.log(tt)
-  var options = {
-    headers: {
-      'x-rapidapi-key': `${process.env.key}`,
-      'x-rapidapi-host': `${process.env.imdb}`
-    }
-  };
-  const result = await axios(`https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${tt}`, options)
-  const { data } = result;
-  res.render('info2', { data })
-}))
+app.get('/search/:tt/:id', WrapAsync(async (req, res, next) => {
+  const { tt, id } = req.params;
+  console.log("***", tt, id, "***")
 
-app.get('/search/:id', WrapAsync(async (req, res, next) => {
-  const { id } = req.params;
   const options = {
     params: { movie_id: `${id}` },
     headers: {
@@ -106,20 +94,34 @@ app.get('/search/:id', WrapAsync(async (req, res, next) => {
       'x-rapidapi-host': `${process.env.adv}`
     }
   };
-  const result = await axios('https://advanced-movie-search.p.rapidapi.com/movies/getdetails', options)
-  const {data} = result;
-
-  const tt = data.imdb_id;
   var param = {
     headers: {
       'x-rapidapi-key': `${process.env.key}`,
       'x-rapidapi-host': `${process.env.imdb}`
     }
   };
-  const result2 = await axios(`https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${tt}`, param)
-  const data2 = result2.data;
+  let data = "";
+  let data2 = "";
+  try {
+    const result = await axios('https://advanced-movie-search.p.rapidapi.com/movies/getdetails', options)
+    data = result.data;
+  }
+  catch (e) {
+    console.log("error in advnced mvie search")
+    try {
+      const result2 = await axios(`https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${tt}`, param)
+      const data2 = result2.data;
+      res.render('info2', { data2 })
+    } catch (e) { console.log("error in imdb, after adv failed"); next(e); }
+  }
 
-  res.render('info', {data , data2})
+  try {
+    const result2 = await axios(`https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${tt}`, param)
+    data2 = result2.data;
+  }
+  catch (e) { console.log("success in adv , but err in imbd");}
+
+  res.render('info', { data, data2 })
 }))
 
 

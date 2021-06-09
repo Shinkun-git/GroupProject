@@ -1,5 +1,5 @@
 body{
-    background-color: beige;
+    background-color: #c0fdff;
 }
 
 #infoc{
@@ -39,4 +39,14 @@ body{
     text-emphasis-color: goldenrod;
     text-shadow: goldenrod;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.card{
+    background-color: #f4978e;
+}
+
+#cardHd{
+    padding: 1px ;
+    border: 1.5px solid rgb(152, 15, 165);
+    border-radius: 3px;
 }
