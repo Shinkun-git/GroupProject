@@ -8,7 +8,6 @@ const RevSchema = new Schema({
     Review: String,
     Usr: String
 })
-UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Review', RevSchema);
 

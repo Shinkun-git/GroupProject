@@ -63,3 +63,18 @@ body{
     border: 1.5px solid rgb(152, 15, 165);
     border-radius: 3px;
 }
+
+#revCOl{
+    border: 2px solid rgb(233, 143, 26);
+    border-radius: 5px;
+}
+
+.revBOX{
+    background-image: linear-gradient(to bottom right, rgba(130, 79, 212, 0.87), rgb(194, 101, 101));
+    border: 1px solid rgb(160, 6, 6);
+    border-radius: 5px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 2px;
+    padding-right: 2px;
+}

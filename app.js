@@ -6,6 +6,7 @@ const express = require('express')
 const app = express();
 const path = require('path')
 const UserRoutes = require('./routes/UserRoutes')
+const ReviewRoutes = require('./routes/ReviewRoutes')
 const mongoose = require('mongoose')
 const ExpressError = require('./middleware/ExpressError')
 const WrapAsync = require('./middleware/WrapAsync')
@@ -16,6 +17,7 @@ const flash = require('connect-flash')
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/User');
+const ReviewList = require('./models/ReviewList');
 
 app.engine('ejs', engine)
 app.set('view engine', 'ejs')
@@ -23,8 +25,8 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 
-const DBurl = 'mongodb://localhost:27017/MovieDB'
-// const DBurl = `${process.env.mongoATLS}`
+// const DBurl = 'mongodb://localhost:27017/MovieDB'
+const DBurl = `${process.env.mongoATLS}`
 
 mongoose.connect(DBurl, {
   useNewUrlParser: true,
@@ -69,12 +71,10 @@ app.get('/', (req, res) => {
 })
 
 app.use('/', UserRoutes)
+app.use('/', ReviewRoutes)
 
 app.post('/search', WrapAsync(async (req, res) => {
   const { term, Qtyp, genlist } = req.body;
-  /*   console.log(term)
-    console.log(Qtyp)
-    console.log(genlist) */
 
   if (Qtyp == 'n') {
     if (!term) {
@@ -152,9 +152,9 @@ app.get('/search/:tt/:id', WrapAsync(async (req, res, next) => {
   const OMDBres = await axios('http://www.omdbapi.com/', OMDBparam)
   const OMDB = OMDBres.data;
   console.log('result*****************')
-  console.log(OMDB)
-  res.render('details', {OMDB , data , data2})
-  // res.render('info', { data, data2 })
+  const haveReviews = await ReviewList.find({MovieID : imdbID})
+  console.log(haveReviews)
+  res.render('details', {OMDB , data , data2 , haveReviews})
 }))
 
 

@@ -62,4 +62,29 @@
     </div>
     <hr>
   </div>
+      <div class="container mb-4">
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <form action="/rev/<%= OMDB.Title %>/<%= OMDB.imdbID %>" method="post" class="validatedForm" novalidate>
+              <label for="rate" class="form-label">Add a Review</label>
+              <input type="range" name="rating" min="1" max="5" id="rate" class="form-control">
+              <label for="txt" class="form-label">Review</label>
+              <textarea name="review" id="txt" cols="15" rows="3" class="form-control" placeholder="put your review here"></textarea>
+              <center><button class="btn btn-md btn-info">Done</button></center>
+            </form>
+          </div>
+          <div class="col-10"></div>
+          <div class="col-10"></div>
+          <div class="col-10"></div>
+          <div class="col-8" id="revCOl">
+            <% for(let rev of haveReviews){ %> 
+              <div class="revBOX mb-1 mt-1">
+                <div class="p-1"><b><%= rev.Usr %></b></div>
+                <p><b>Rated : <%= rev.Rate %> </b>,  " <%= rev.Review %> "</p>
+              </div>
+              <% } %> 
+          </div>
+        </div>
+      </div>
 </div>
+<br><br>
