@@ -1,0 +1,65 @@
+<% layout('layouts/boilerplate') %> 
+<%- include('./partials/navbar')  %> 
+<%- include('./partials/flash')  %> 
+
+<div class="container mt-5">
+    <div class="row justify-content-around">
+    <div class="col-md-4">
+      <img src="<%= OMDB.Poster %>" class="thumbnail" alt="N/A">
+    </div>
+    <div class="col-md-8">
+      <h2 class="d-inline-block"><%= OMDB.Title %></h2><span class="text-muted">   <%= OMDB.Year %></span>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Genre:</strong><%= OMDB.Genre %> </li>
+        <li class="list-group-item"><strong>Released:</strong><%= OMDB.Released %></li>
+        <li class="list-group-item"><strong>Rated:</strong><%= OMDB.Rated %></li>
+        <li class="list-group-item"><strong>IMDB Rating:</strong> <%= OMDB.imdbRating %></li>
+        <li class="list-group-item"><strong>Director:</strong> <%= OMDB.Director %></li>
+        <li class="list-group-item"><strong>Writer:</strong><%= OMDB.Writer %></li>
+        <li class="list-group-item"><strong>Actors:</strong><%= OMDB.Actors %></li>
+      </ul>
+      <div class="mt-3">
+        <h3>Plot</h3>
+        <%= OMDB.Plot %>
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="well"> 
+        <div class="container mt-1">
+            <div class="row justify-content-center align-items-center">
+                <div class="col"><br><br>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Language:</strong><%= OMDB.Language %></li>
+                    <li class="list-group-item"><strong>Runtime:</strong><%= OMDB.Runtime %></li>
+                    <li class="list-group-item"><strong>Country:</strong><%= OMDB.Country %></li>
+                    <hr>
+                    <a href="http://imdb.com/title/<%= OMDB.imdbID %>" target="_blank" class="btn btn-primary">View IMDB</a>
+                </ul>
+                </div>
+    <% if(data){ %> 
+                <div class="col col-8">
+                    <div class="card bg-dark text-white">
+                    <img src="<%= data.backdrop_path %>" class="card-img" alt="N/A">
+                    <div class="card-img-overlay">
+                        <div class="container" style="height: 100%;">
+                            <div class="row justify-content-around"  id="boxp">
+                                <div class="col">
+                                    <div>
+                                        <p class="card-text"><i id="plot"><%= data.overview %></i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %> 
+
+    </div>
+    <hr>
+  </div>
+</div>

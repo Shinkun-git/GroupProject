@@ -1,23 +1,80 @@
-<div style="height: 110px; background-color: rgba(255,0,0,0.1);">
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary"  id="top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Mubies🍦</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.imdb.com/chart/top/?ref_=nv_mv_250" target="_blank">Top Rated</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.imdb.com/chart/moviemeter/?ref_=nv_mv_mpm" target="_blank">Popular</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#_about">About</a>
+          </li>
+          <li class="nav-item" style="position:absolute;right:150px;">
+            <a class="nav-link" href="https://www.github.com/" target="_blank"><i class="bi bi-github"></i></a>
+          </li>
+          <li class="nav-item" style="position:absolute;right:100px;">
+            <a class="nav-link" href="https://www.twitter.com/" target="_blank"><i class="bi bi-twitter"></i></a>
+          </li>
+          <li class="nav-item" style="position:absolute;right:50px;">
+            <a class="nav-link" href="https://www.facebook.com/" target="_blank"><i class="bi bi-facebook"></i></a>
+          </li>
+        </ul>
+        <div class="navbar-nav ml-auto">
+            <% if(!currentUser) {%>
+                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" href="/register">Register</a>
+                <% } else {%>
+                <div id="uname"><%= currentUser.username %></div>
+                <a class="nav-link" href="/logout"> <span id="logicon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                  </svg>  </span> Logout  </a>
+                <% } %>
+        </div>
+      </div>
+      </div>
+  </nav>
+
+<!--   <div style="height: 100px;">
     <nav class="navbar sticky-top navbar-expand-lg  navbar-dark bg-dark h-100" >
         <div class="container-fluid h-100">
-            <a class="navbar-brand" href="#">MediaHUB</a>
+            <a class="navbar-brand" href="#">Mubies</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link" href="/">Home NAv</a>
-                    
+                    <a class="nav-link" href="/">Home</a>
                 </div>
-                
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-link" href="/">Home</a>
+                    < if(!currentUser) {%>
+                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link" href="/register">Register</a>
+                        < } else {%>
+                        <div id="uname"><= currentUser.username %></div>
+                        <a class="nav-link" href="/logout"> <span id="logicon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                          </svg>  </span> Logout  </a>
+                        < } %>
+                </div>
             </div>
         </div>
     </nav>
-
-
-
-</div>
+</div> -->
 

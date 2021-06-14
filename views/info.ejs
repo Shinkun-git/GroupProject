@@ -26,9 +26,10 @@
             <p><b>Popularity:</b> <%= data.popularity %> ,<b>IMDB_id:</b> <%= data.imdb_id %></p>
             <p><b>votesAVG:</b>  <%= data.vote_average %> ,<b>voted:</b>  <%= data.vote_count %></p>
             <br>
+            
             <% if(data2){ %> 
             <p>Cast:- <ul>
-                <% for(let i=0 ; i <data2.cast.length ; i++){ %> 
+                <% for(let i=0 ; i <data2.cast.length ; i++){ if(i>5){break;} %> 
                 <li><b><%= data2.cast[i].actor %></b> as <%= data2.cast[i].character %> </li>    
                     <% if(i>5){break;}} %>
                     </ul>
@@ -37,7 +38,7 @@
         </div>
         <div class="col col-8" style="margin-top: 2em;">
             <div class="card bg-dark text-white">
-            <img src="<%= data.backdrop_path %>" class="card-img" alt="...">
+            <img src="<%= data.backdrop_path %>" class="card-img" alt="N/A">
             <div class="card-img-overlay">
                 <div id="boxp">
                     <h5 class="card-title">plot</h5>

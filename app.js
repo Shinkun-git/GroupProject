@@ -5,18 +5,38 @@ if (process.env.NODE_ENV !== "production") {
 const express = require('express')
 const app = express();
 const path = require('path')
-
+const UserRoutes = require('./routes/UserRoutes')
+const mongoose = require('mongoose')
 const ExpressError = require('./middleware/ExpressError')
+const WrapAsync = require('./middleware/WrapAsync')
 const engine = require('ejs-mate')
 const axios = require('axios')
 const session = require('express-session')
 const flash = require('connect-flash')
-const WrapAsync = require('./middleware/WrapAsync')
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/User');
+
 app.engine('ejs', engine)
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
+
+const DBurl = 'mongodb://localhost:27017/MovieDB'
+// const DBurl = `${process.env.mongoATLS}`
+
+mongoose.connect(DBurl, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
+});
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+  console.log("Database connected");
+});
 
 const sessionConfig = {
   secret: 'secretSession',
@@ -30,7 +50,13 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig))
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();
@@ -41,6 +67,8 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.render('home')
 })
+
+app.use('/', UserRoutes)
 
 app.post('/search', WrapAsync(async (req, res) => {
   const { term, Qtyp, genlist } = req.body;
@@ -110,18 +138,23 @@ app.get('/search/:tt/:id', WrapAsync(async (req, res, next) => {
     console.log("error in advnced mvie search")
     try {
       const result2 = await axios(`https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${tt}`, param)
-      const data2 = result2.data;
-      res.render('info2', { data2 })
+      data2 = result2.data;
     } catch (e) { console.log("error in imdb, after adv failed"); next(e); }
   }
-
-  try {
-    const result2 = await axios(`https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${tt}`, param)
-    data2 = result2.data;
+  const imdbID = data.imdb_id || data2.id;
+  console.log(data.imdb_id)
+  console.log(data2.id)
+  console.log('extracted= ', imdbID)
+  const OMDBparam = {
+    params: { i: `${imdbID}`, apikey:  `${process.env.Okey}` },
+    header: {Accept: 'application/json'}
   }
-  catch (e) { console.log("success in adv , but err in imbd");}
-
-  res.render('info', { data, data2 })
+  const OMDBres = await axios('http://www.omdbapi.com/', OMDBparam)
+  const OMDB = OMDBres.data;
+  console.log('result*****************')
+  console.log(OMDB)
+  res.render('details', {OMDB , data , data2})
+  // res.render('info', { data, data2 })
 }))
 
 
@@ -136,7 +169,7 @@ app.use((err, req, res, next) => {
   res.status(status).render('error', { err })
 })
 
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 app.listen(port, (req, res) => {
   console.log(`Listening on port ${port}`)
 })

@@ -1,5 +1,14 @@
+html{
+    width:100vw;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 body{
     background-color: #c0fdff;
+    width:100vw;
+    overflow-x: hidden;
+    
+    height:100vh;
 }
 
 #infoc{
@@ -10,21 +19,25 @@ body{
     width: 100%;
     height: 100%;
     text-align: center;
-    background-color: rgb(184, 91, 54);
 }
 #poster{
     object-fit: inherit;
     max-width: 90%;
-    padding: 1.5em;
+    padding: 1em;
     border: 2px solid brown;
     border-radius: 7px;
 }
 
 #boxp{
+    align-self: center;
     opacity: 0.5;
     scale: 80%;
-    margin-top: 8em;
-    transition: background-color 0.8s ease 0s , opacity 0.5s ease 0.4s;
+    margin-top: 3em;
+    border-radius: 5px;
+    padding-left:10px;
+    padding-right:4px;
+    height: initial;
+    transition: background-color 0.8s ease 0s , opacity 0.5s ease 0.4s ;
 }
 #boxp:hover{
     opacity: 0.8;
