@@ -4,6 +4,7 @@ const router = express.Router();
 const User = require('../models/User')
 const ReviewList = require('../models/ReviewList')
 const WrapAsync = require('../middleware/WrapAsync')
+const ExpressError = require('../middleware/ExpressError')
 const isLog = require('../middleware/isLog')
 
 
@@ -27,17 +28,21 @@ router.post('/rev/:tt/:id', isLog, WrapAsync(async (req, res, next) => {
     res.redirect(`/search/${tt}/${id}`)
 }))
 
-router.delete('/rev/:rid/:id/:tt/:usr', async (req, res) => {
+router.delete('/rev/:rid/:id/:tt/:usr', isLog ,WrapAsync( async (req, res) => {
     const { rid, id, tt, usr } = req.params;
-    // console.log(rid)
-    // console.log(id)
-    // console.log(tt)
-    // console.log(usr)
-    const Dreview = await ReviewList.findByIdAndDelete(rid);
+    console.log(rid)
+    console.log(id)
+    console.log(tt)
+    console.log(usr)
+    if(req.user.username!=usr){ throw new ExpressError(`"Not Authorized to Delete  ~${usr}'s  Review "` , 401)}
+    else{
+        const Dreview = await ReviewList.findByIdAndDelete(rid);
     const RevUsr = await User.findOneAndUpdate({username:usr}, {$pull: {Review : rid}} , {new:true})
     // console.log(RevUsr)
     req.flash('success', 'Deleted review succefully')
     res.redirect(`/search/${tt}/${id}`)
-})
+    }
+    
+}))
 
 module.exports = router
