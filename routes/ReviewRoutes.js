@@ -29,13 +29,13 @@ router.post('/rev/:tt/:id', isLog, WrapAsync(async (req, res, next) => {
 
 router.delete('/rev/:rid/:id/:tt/:usr', async (req, res) => {
     const { rid, id, tt, usr } = req.params;
-    console.log(rid)
-    console.log(id)
-    console.log(tt)
-    console.log(usr)
+    // console.log(rid)
+    // console.log(id)
+    // console.log(tt)
+    // console.log(usr)
     const Dreview = await ReviewList.findByIdAndDelete(rid);
     const RevUsr = await User.findOneAndUpdate({username:usr}, {$pull: {Review : rid}} , {new:true})
-    console.log(RevUsr)
+    // console.log(RevUsr)
     req.flash('success', 'Deleted review succefully')
     res.redirect(`/search/${tt}/${id}`)
 })

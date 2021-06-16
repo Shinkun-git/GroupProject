@@ -117,7 +117,7 @@ app.post('/search', WrapAsync(async (req, res) => {
 
 app.get('/search/:tt/:id', WrapAsync(async (req, res, next) => {
   const { tt, id } = req.params;
-  console.log("***", tt, id, "***")
+  // console.log("***", tt, id, "***")
 
   const options = {
     params: { movie_id: `${id}` },
@@ -155,9 +155,9 @@ app.get('/search/:tt/:id', WrapAsync(async (req, res, next) => {
   }
   const OMDBres = await axios('http://www.omdbapi.com/', OMDBparam)
   const OMDB = OMDBres.data;
-  console.log('result*****************')
+  // console.log('result*****************')
   const haveReviews = await ReviewList.find({MovieID : imdbID})
-  console.log(haveReviews)
+  // console.log(haveReviews)
   res.render('details', {OMDB , data , data2 , haveReviews , id})
 }))
 
