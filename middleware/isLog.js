@@ -1,6 +1,6 @@
 
 
-const ExpressError = require("./expressError")
+const ExpressError = require("./ExpressError")
 
 const isLog = (req ,res ,next)=>{
     if(!req.isAuthenticated()){
