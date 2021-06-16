@@ -104,11 +104,13 @@
                     Rated
                   </p></li>
                 <li class="list-group-item pt-0"><%= rev.Review %></li>
+                <% if(LoggedUsr== rev.Usr){%> 
                 <li class="list-group-item pt-0">
                   <form action="/rev/<%= rev._id %>/<%= id %>/<%= OMDB.Title %>/<%= rev.Usr %>?_method=DELETE" method="post">
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-primary">Delete</button>
                   </form>
                 </li>
+                <% } %> 
               </ul>
               
               <% } %> 

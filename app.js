@@ -158,7 +158,11 @@ app.get('/search/:tt/:id', WrapAsync(async (req, res, next) => {
   // console.log('result*****************')
   const haveReviews = await ReviewList.find({MovieID : imdbID})
   // console.log(haveReviews)
-  res.render('details', {OMDB , data , data2 , haveReviews , id})
+  let LoggedUsr ="";
+  if(req.user){
+    LoggedUsr = req.user.username;
+  }
+  res.render('details', {OMDB , data , data2 , haveReviews , id , LoggedUsr})
 }))
 
 
