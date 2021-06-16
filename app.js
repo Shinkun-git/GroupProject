@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require('express')
 const app = express();
 const path = require('path')
+const methodOverride = require('method-override')
 const UserRoutes = require('./routes/UserRoutes')
 const ReviewRoutes = require('./routes/ReviewRoutes')
 const mongoose = require('mongoose')
@@ -25,8 +26,8 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 
-// const DBurl = 'mongodb://localhost:27017/MovieDB'
-const DBurl = `${process.env.mongoATLS}`
+const DBurl = 'mongodb://localhost:27017/MovieDB'
+// const DBurl = `${process.env.mongoATLS}`
 
 mongoose.connect(DBurl, {
   useNewUrlParser: true,
@@ -50,6 +51,7 @@ const sessionConfig = {
     maxAge: null
   }
 }
+app.use(methodOverride('_method'))
 app.use(session(sessionConfig))
 app.use(flash());
 app.use(passport.initialize());
@@ -69,7 +71,9 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.render('home')
 })
-
+app.get('/about', (req, res)=>{
+  res.render('about')
+})
 app.use('/', UserRoutes)
 app.use('/', ReviewRoutes)
 
@@ -90,7 +94,7 @@ app.post('/search', WrapAsync(async (req, res) => {
     };
     const result = await axios('https://advanced-movie-search.p.rapidapi.com/search/movie', options)
     const resultsARRAY = result.data.results;
-    res.render('matches', { resultsARRAY, term, genlist })
+    res.render('matches', { resultsARRAY, term, genlist , Qtyp})
   }
   else if (Qtyp == 'g') {
     if (!genlist) {
@@ -106,7 +110,7 @@ app.post('/search', WrapAsync(async (req, res) => {
     };
     const result = await axios('https://advanced-movie-search.p.rapidapi.com/discover/movie', options)
     const resultsARRAY = result.data.results;
-    res.render('matches', { resultsARRAY, genlist, term })
+    res.render('matches', { resultsARRAY, term, Qtyp })
   }
 }))
 
@@ -154,7 +158,7 @@ app.get('/search/:tt/:id', WrapAsync(async (req, res, next) => {
   console.log('result*****************')
   const haveReviews = await ReviewList.find({MovieID : imdbID})
   console.log(haveReviews)
-  res.render('details', {OMDB , data , data2 , haveReviews})
+  res.render('details', {OMDB , data , data2 , haveReviews , id})
 }))
 
 

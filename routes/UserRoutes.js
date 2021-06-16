@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 const User = require('../models/User')
-const { isLoggedin } = require('../middleware/isLogin')
+const  isLog = require('../middleware/isLog')
 
 router.get('/register', (req, res) => {
     res.render('register')
@@ -25,7 +25,7 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
     res.redirect('/');
 })
 
-router.get('/logout', isLoggedin, (req, res) => {
+router.get('/logout',isLog, (req, res) => {
     req.logout()
     req.flash('success', "Goodbye!");
     res.redirect('/');

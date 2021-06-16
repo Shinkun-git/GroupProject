@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %> 
 <%- include('./partials/navbar')  %> 
 <%- include('./partials/flash')  %> 
-
+<link rel="stylesheet" href="/css/star-css.css">
 <div class="container mt-5">
     <div class="row justify-content-around">
     <div class="col-md-4">
@@ -62,26 +62,55 @@
     </div>
     <hr>
   </div>
-      <div class="container mb-4">
+      <div class="container mb-4 mt-3">
         <div class="row justify-content-center">
           <div class="col-6">
             <form action="/rev/<%= OMDB.Title %>/<%= OMDB.imdbID %>" method="post" class="validatedForm" novalidate>
-              <label for="rate" class="form-label">Add a Review</label>
-              <input type="range" name="rating" min="1" max="5" id="rate" class="form-control">
-              <label for="txt" class="form-label">Review</label>
-              <textarea name="review" id="txt" cols="15" rows="3" class="form-control" placeholder="put your review here"></textarea>
-              <center><button class="btn btn-md btn-info">Done</button></center>
+              <p>Add a Review</p>
+    
+              <fieldset class="starability-grow">
+                <input type="radio" id="no-rate" class="input-no-rate" name="rate" value="0" checked aria-label="No rating." />
+          
+                <input type="radio" id="rate1" name="rate" value="1" />
+                <label for="rate1">1 star.</label>
+          
+                <input type="radio" id="rate2" name="rate" value="2" />
+                <label for="rate2">2 stars.</label>
+          
+                <input type="radio" id="rate3" name="rate" value="3" />
+                <label for="rate3">3 stars.</label>
+          
+                <input type="radio" id="rate4" name="rate" value="4" />
+                <label for="rate4">4 stars.</label>
+          
+                <input type="radio" id="rate5" name="rate" value="5" />
+                <label for="rate5">5 stars.</label>
+          
+                <span class="starability-focus-ring"></span>
+              </fieldset>
+    
+              <br>
+              <textarea name="review" id="txt" cols="15" rows="3" class="form-control" placeholder="Put your review here"></textarea><br>
+              <button class="btn btn-md btn-info">Done</button>
             </form>
           </div>
-          <div class="col-10"></div>
-          <div class="col-10"></div>
-          <div class="col-10"></div>
-          <div class="col-8" id="revCOl">
-            <% for(let rev of haveReviews){ %> 
-              <div class="revBOX mb-1 mt-1">
-                <div class="p-1"><b><%= rev.Usr %></b></div>
-                <p><b>Rated : <%= rev.Rate %> </b>,  " <%= rev.Review %> "</p>
-              </div>
+          <div class="col-8 mt-2 mb-2">
+            <% for(let rev of haveReviews){ %>
+              <ul class="list-group mt-1">
+                
+                <li class="list-group-item pb-0"><strong>User - </strong> <span id="usr"> <%= rev.Usr %></span></li>
+                <li class="list-group-item pb-0 pt-0">
+                  <p class="starability-result" data-rating="<%= rev.Rate %>">
+                    Rated
+                  </p></li>
+                <li class="list-group-item pt-0"><%= rev.Review %></li>
+                <li class="list-group-item pt-0">
+                  <form action="/rev/<%= rev._id %>/<%= id %>/<%= OMDB.Title %>/<%= rev.Usr %>?_method=DELETE" method="post">
+                    <button class="btn btn-danger">Delete</button>
+                  </form>
+                </li>
+              </ul>
+              
               <% } %> 
           </div>
         </div>

@@ -1,27 +1,26 @@
 
 <% layout('layouts/boilerplate') %> 
-
+<link rel="stylesheet" href="/css/home.css">
 <%- include('./partials/Hnavbar')  %> 
 <%- include('./partials/flash')  %> 
 
-<link rel="stylesheet" href="/css/home.css">
 
-    <div class="container">
+
+    <div class="container mb-3" id="container">
         <div class="row justify-content-center">
-            <div class="col-8">
+            <div class="col-8" id="cntntcol">
               <form action="/search" method="post" class="validateForm" novalidate id="hform">
                 <div class="form-group">
-                  <label class="form-label" for="query">Search box</label>
-                <input class="form-control" type="text" name="term" id="query" placeholder="Name a movie">
-                </div> <br>
-                <div class="container">
-                  <div class="row justify-content-around">
-                    <div class="col-5" id="rdio">
-                      <label class="form-label" for="Querymethod">Browse by :  </label>
-                      <label class="form-label"><input type="radio" name="Qtyp" id="nameradio" value="n" checked required>Name <span>   or </span></label>
-                      <label class="form-label"><input type="radio" name="Qtyp" id="genradio" value="g" required>Search by Genre</label>
+                <input class="form-control" type="text" name="term" id="query" placeholder="Search Movies...">
+                </div>
+                <div class="container mt-4">
+                  <div class="row" id="element2">
+                    <div class="col-6" id="rdio">
+                        <label class="form-label" for="Querymethod">Browse by :  </label>
+                      <label class="form-label"><input type="radio" name="Qtyp" id="nameradio" value="n" checked required>Name</label>
+                      <label class="form-label"><input type="radio" name="Qtyp" id="genradio" value="g" required>Genre</label>
                     </div>
-                    <div class="col-4">
+                    <div class="col-5">
                       <button type="submit" class="btn" id="submit">Search</button>
                     </div>
                   </div>
@@ -62,19 +61,27 @@
               </form>
               
             </div>
-            <div class="col-6">
-              <center>
-                <div class="card text-white bg-primary mb-3" style="max-width: 35rem;" id="_about">
-              <div class="card-header">About</div>
-              <div class="card-body">
-                <h4 class="card-title">Mubies</h4>
-                <p class="card-text">Mubies is a movie searching web application. It displays movie titles related to the text entered in the search box. Movie title has a movie details button which when clicked displays the details of the movie.</p>
-              </div>
-            </div>
-              </center>
-            </div>
         </div>
     </div>
+    <center>
+      <div class="container" style="margin-top: 12em;">
+      <div class="row justify-content-center"></div>
+    <div class="col">
+      <center>
+        <div class="card text-white bg-primary mb-3" style="max-width: 35rem;opacity:0.8;" id="_about">
+      <div class="card-header">About</div>
+      <div class="card-body">
+        <h4 class="card-title">Mubies</h4>
+        <p class="card-text">Mubies is a movie searching web application. It displays movies related to your queries & also gives details of individual movies. You can aslo add your own reviews to a movie. </p>
+      </div>
+    </div>
+      </center>
+    </div>
+    </div>
+    <br><br><br>
+    </center>
+    
+    
     <script>
       let val=''
       const list = document.querySelector('#genlist')

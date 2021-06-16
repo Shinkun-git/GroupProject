@@ -1,6 +1,7 @@
 <% layout('layouts/boilerplate') %> 
 <%- include('./partials/Hnavbar') %> 
-<div class="container">
+
+<div class="container mt-5">
     <div class="row">
         <div class="col-4 offset-3">
             <form action="/login" method="post" novalidate class="validateForm">
@@ -8,6 +9,7 @@
                 <input type="text" id="uname" class="form-control" name="username" active required>
                 <label for="pass" class="form-label">Password</label>
                 <input type="password" id="pass" class="form-control" name="password" required>
+                <br>
                 <button class="btn btn-lg btn-primary">Log in</button>
             </form>
         </div>

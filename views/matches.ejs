@@ -1,30 +1,23 @@
 <% layout('layouts/boilerplate') %>
 <%- include('./partials/navbar')  %> 
 <%- include('./partials/flash')  %> 
-<% if(!term){ %> 
-  <h2>Results for " "</h2>
-  <% }else{ %>
-    <h2>Results for "<%= term %>"</h2> 
-    <% } %> 
 
-<% if(!genlist){ %> 
-  <h2>Results for genre tags - " "</h2>
-  <% }else{ %>
-    <h2>Results for genre tags - "<%= genlist %>"</h2> 
-    <% } %> 
+<% if(Qtyp=='n'){ %>
+  <h3>Results for "<%= term %>"</h3> 
+  <% } %> 
 
-<h3>movie titles</h3>
-    <div class="container">
+    <div class="container mt-5 mb-3">
         <div class="row justify-content-center">
             <% for(let obj of resultsARRAY){ %>
                 <div class="col-sm-8 col-md-6 col-lg-4 col-xxl-3">
-                    <div class="card mt-3">
+                    <div class="card border-secondary mb-3">
                         <a href="/search/<%= obj.title %>/<%= obj.id %>"><img src="<%= obj.poster_path %>" class="card-img-top" alt="N/A"></a>
                         <div class="card-body">
-                          <h5 class="card-title bg-info" id="cardHd"><%= obj.title %></h5>
-                          <p class="card-text"><b>Language :</b> "<%= obj.original_language %>"  <span class="text-muted">        ID-<%= obj.id %></span></p>
-                          <p class="card-text"><b>Released :</b> <%= obj.release_date %>  ,  <b>popularity :</b> <%= obj.popularity %></p>
-                          <p class="card-text"><b>votes :</b> <%= obj.vote_average %> <b>Out of:- </b> <%= obj.vote_count %> voters.  </p>
+                          <h5 class="card-header mb-2" style="width: 95%;"><%= obj.title %></h5>
+                          <p class="card-text"><b>Language :</b> "<%= obj.original_language %>"</p>
+                          <p class="card-text"><b>Released :</b> <%= obj.release_date %></p>
+                          <p class="card-text"><b>Popularity :</b> <%= obj.popularity %></p>
+                          <p class="card-text"><b>Avg Vote :</b> <%= obj.vote_average %> <span class="text-muted"><b>~</b><%= obj.vote_count %> voters</span></p>
                           <a href="/search/<%= obj.title %>/<%= obj.id %>" class="btn btn-primary">Details</a>
                         </div>
                       </div>
