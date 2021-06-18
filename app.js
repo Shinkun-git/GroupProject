@@ -26,8 +26,8 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 
-// const DBurl = 'mongodb://localhost:27017/MovieDB'
-const DBurl = `${process.env.mongoATLS}`
+const DBurl = 'mongodb://localhost:27017/MovieDB'
+// const DBurl = `${process.env.mongoATLS}`
 
 mongoose.connect(DBurl, {
   useNewUrlParser: true,
