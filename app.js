@@ -17,6 +17,7 @@ const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const MongoDBStore = require("connect-mongo")(session);
 const User = require('./models/User');
 const ReviewList = require('./models/ReviewList');
 
@@ -41,7 +42,18 @@ db.once("open", () => {
   console.log("Database connected");
 });
 
+const store = new MongoDBStore({
+  url: DBurl,
+  secret: 'secretSession',
+  touchAfter: 24 * 3600
+})
+
+store.on("error" , function(e){
+  console.log('session store error' , e)
+})
+
 const sessionConfig = {
+  store: store,
   secret: 'secretSession',
   resave: false,
   saveUninitialized: true,
@@ -51,6 +63,7 @@ const sessionConfig = {
     maxAge: null
   }
 }
+
 app.use(methodOverride('_method'))
 app.use(session(sessionConfig))
 app.use(flash());
