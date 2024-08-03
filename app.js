@@ -45,7 +45,7 @@ db.once("open", () => {
 const store = new MongoDBStore({
   url: DBurl,
   secret: 'secretSession',
-  touchAfter: 24 * 3600
+  touchAfter: 24 * 3600,
 })
 
 store.on("error" , function(e){
@@ -92,7 +92,7 @@ app.use('/', ReviewRoutes)
 
 app.post('/search', WrapAsync(async (req, res) => {
   const { term, Qtyp, genlist } = req.body;
-
+// console.log(genlist);
   if (Qtyp == 'n') {
     if (!term) {
       req.flash('error', 'specify a Movie name to search');
@@ -123,7 +123,7 @@ app.post('/search', WrapAsync(async (req, res) => {
     };
     const result = await axios('https://advanced-movie-search.p.rapidapi.com/discover/movie', options)
     const resultsARRAY = result.data.results;
-    res.render('matches', { resultsARRAY, term, Qtyp })
+    res.render('matches', { resultsARRAY, term, genlist, Qtyp })
   }
 }))
 
