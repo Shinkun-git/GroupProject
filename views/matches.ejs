@@ -11,7 +11,13 @@
             <% for(let obj of resultsARRAY){ %>
                 <div class="col-sm-8 col-md-6 col-lg-4 col-xxl-3">
                     <div class="card border-secondary mb-3">
-                        <a href="/search/<%= obj.title %>/<%= obj.id %>"><img src="<% if(obj.poster_path){ %><%= obj.poster_path %><% }else{ %><%= /public/resources/noi.jpg  %><% } %>" class="card-img-top" alt="N/A"></a>
+                        <a href="/search/<%= obj.title %>/<%= obj.id %>">
+                          <% if(obj.poster_path){ %>
+                            <img src="<%= obj.poster_path %>" class="card-img-top" alt="N/A">
+                          <% }else{ %>
+                            <img src="/resources/noi.jpg" class="card-img-top" alt="N/A">
+                            <% } %>
+                        </a>
                         <div class="card-body">
                           <h5 class="card-header mb-2" style="width: 95%;"><%= obj.title %></h5>
                           <p class="card-text"><b>Language :</b> "<%= obj.original_language %>"</p>
