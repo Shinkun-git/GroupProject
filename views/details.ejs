@@ -5,7 +5,12 @@
 <div class="container mt-5">
     <div class="row justify-content-around">
     <div class="col-md-4">
-      <img src="<%= OMDB.Poster %>" class="thumbnail" alt="N/A">
+        <% if(OMDB.Poster !== ""){ %>
+          <img src="<%= OMDB.Poster %>" class="thumbnail" alt="N/A">
+        <% }else{ %>
+          <img src="/resources/noi.jpg" class="card-img-top" alt="N/A">
+          <% } %>
+      </a>
     </div>
     <div class="col-md-8">
       <h2 class="d-inline-block"><%= OMDB.Title %></h2><span class="text-muted">   <%= OMDB.Year %></span>
@@ -41,7 +46,11 @@
     <% if(data){ %> 
                 <div class="col col-8">
                     <div class="card bg-dark text-white">
-                    <img src="<%= data.backdrop_path %>" class="card-img" alt="N/A">
+                      <% if (data.backdrop_path !== null) {%>
+                        <img src="<%= data.backdrop_path %>" class="card-img" alt="N/A">
+                      <% }else{ %>
+                        <img src="/resources/noi.jpg" class="card-img-top" alt="N/A">
+                        <% } %>
                     <div class="card-img-overlay">
                         <div class="container" style="height: 100%;">
                             <div class="row justify-content-around"  id="boxp">

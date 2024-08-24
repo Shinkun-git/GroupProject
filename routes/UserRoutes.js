@@ -3,9 +3,8 @@ const router = express.Router();
 const passport = require('passport');
 
 const User = require('../models/User')
-const  isLog = require('../middleware/isLog')
+const  {isLog} = require('../middleware/isLog')
 const  WrapAsync = require('../middleware/WrapAsync')
-const storeReturnTo = require('../middleware/storeReturnTo')
 router.get('/register', (req, res) => {
     res.render('register')
 })
@@ -21,18 +20,18 @@ router.post('/register',WrapAsync(async (req, res, next) => {
     res.redirect('/');
 }))
 
-router.post('/login', storeReturnTo, passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
+router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
     req.flash('success', 'Logged IN successfully!!')
-    const redirectUrl = res.locals.returnTo || '/';
-    res.redirect(redirectUrl);
+    // const redirectUrl = res.locals.returnTo || '/';
+    res.redirect('/');
 })
 
-router.get('/logout', (req, res,next) => {
-    req.logout(function(err){
-        if(err) return next(err);
-        req.flash('success', "Goodbye!");
+router.get('/logout', (req, res, next)=>{
+    // console.log(req.path + " "+ req.originalUrl);
+    req.logout();
+        req.flash('success', "GoodBye!");
+        // console.log("here");
         res.redirect('/');
-    });
-});
+})
 
 module.exports = router

@@ -5,7 +5,7 @@ const User = require('../models/User')
 const ReviewList = require('../models/ReviewList')
 const WrapAsync = require('../middleware/WrapAsync')
 const ExpressError = require('../middleware/ExpressError')
-const isLog = require('../middleware/isLog')
+const {isLog, storeReturnTo} = require('../middleware/isLog')
 
 
 router.post('/rev/:tt/:id', isLog, WrapAsync(async (req, res, next) => {
